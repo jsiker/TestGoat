@@ -19,6 +19,7 @@ class NewVisitorTest(unittest.TestCase):
 
         # she notices the silly title
         self.assertIn('Go At It', self.browser.title)
+        self.fail('Finish the test!')
 
         # she's invited to enter a 'goat' item right away
 
@@ -34,3 +35,5 @@ class NewVisitorTest(unittest.TestCase):
         # lily sees our unique URL for her
 
         # she goes to that URL. and rejoices.
+if __name__ == '__main__':
+    unittest.main(warnings='ignore')
