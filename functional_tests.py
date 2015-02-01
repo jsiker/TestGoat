@@ -22,10 +22,10 @@ class NewVisitorTest(unittest.TestCase):
         # she notices the silly title
         self.assertIn('Go At It', self.browser.title)
         header_text = self.browser.find_element_by_tag_name('h1').text
-        self.assertIn('To-Do', header_text)
+        self.assertIn('To Do', header_text)
 
         # she's invited to enter a 'goat' item right away
-        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox = self.browser.find_element_by_id('new_item')
         self.assertEqual(
             inputbox.get_attribute('placeholder'),
             'Enter a Go At It item'
@@ -37,10 +37,10 @@ class NewVisitorTest(unittest.TestCase):
         # when she hits enter, the page updates
         inputbox.send_keys(Keys.ENTER)
 
-        table = self.browser.find_element_by_id('id_list_table')
+        table = self.browser.find_element_by_id('list_table')
         rows = table.find_elements_by_tag_name('tr')  # find_elementS returns a list which may be empty
         self.assertTrue(                        # find_elemenT returns an element, raises exception if it can't find it
-            any(row.text == '1: brew monkey tea' for row in rows)
+            any(row.text == '1: brew monkey tea' for row in rows), "New item did not appear in table"
         )
 
         # there is still a text box (now empty) inviting her to add another item
