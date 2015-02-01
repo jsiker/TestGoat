@@ -10,7 +10,7 @@ class NewVisitorTest(LiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Firefox()
-        self.browser.implicitly_wait(3)
+        # self.browser.implicitly_wait(3)
 
     def tearDown(self):
         self.browser.quit()
@@ -42,6 +42,8 @@ class NewVisitorTest(LiveServerTestCase):
 
         # when she hits enter, the page updates
         inputbox.send_keys(Keys.ENTER)
+        lily_list_url = self.browser.current_url
+        self.assertRegex(lily_list_url, '/lists/.+')
         self.check_for_row_in_table_list('1: brew monkey tea')
 
         # there is still a text box (now empty) inviting her to add another item
@@ -55,7 +57,27 @@ class NewVisitorTest(LiveServerTestCase):
         self.check_for_row_in_table_list('1: brew monkey tea')
 
 
-        # lily sees our unique URL for her
+        # new user bella comes to the site
+
+        ## we use a new browser session, to make sure that none of lily's data persists
+        self.browser.quit()
+        self.browser = webdriver.Firefox
+
+        # bella visits the page, no sign of lily
+        self.browser.get(self.live_server_url)
+        page_text = self.browser.find_element_by_tag_name('body').text
+        self.assertNotIn('brew monkey tea', page_text)
+        self.assertNotIn('drink money tea, slowly', page_text)
+
+        # bella starts a new list
+        inputbox = self.browser.find_element_by_id('new_item')
+        inputbox.send_keys('doggy bags')
+        inputbox.send_keys(Keys.ENTER)
+
+        # bella gets her own url
+        bella_list_url = self.browser.current_url
+        self.assertRegex(bella_list_url, '/lists/.+')
+        self.assertIn('doggy bags', page_text)
 
         # she goes to that URL. and rejoices.
-        self.fail('Finish the test!')
+        # self.fail('Finish the test!')
