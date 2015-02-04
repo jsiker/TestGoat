@@ -2,7 +2,6 @@ __author__ = 'danielsiker'
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-import unittest
 from django.test import LiveServerTestCase
 
 
@@ -10,7 +9,7 @@ class NewVisitorTest(LiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Firefox()
-        # self.browser.implicitly_wait(3)
+        # self.browser.implicitly_wait(2)
 
     def tearDown(self):
         self.browser.quit()
@@ -77,7 +76,10 @@ class NewVisitorTest(LiveServerTestCase):
         # bella gets her own url
         bella_list_url = self.browser.current_url
         self.assertRegex(bella_list_url, '/lists/.+')
-        self.assertIn('doggy bags', page_text)
+        self.assertNotEqual(lily_list_url, bella_list_url)
 
-        # she goes to that URL. and rejoices.
+        # no trace of lily's stuff
+        page_text = self.browser.find_element_by_tag_name('body').text
+        self.assertNotIn('brew monkey tea', page_text)
+        self.assertIn('doggy bags', page_text)
         # self.fail('Finish the test!')
