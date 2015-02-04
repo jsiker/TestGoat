@@ -60,7 +60,7 @@ class NewVisitorTest(LiveServerTestCase):
 
         ## we use a new browser session, to make sure that none of lily's data persists
         self.browser.quit()
-        self.browser = webdriver.Firefox
+        self.browser = webdriver.Firefox()
 
         # bella visits the page, no sign of lily
         self.browser.get(self.live_server_url)

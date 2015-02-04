@@ -2,7 +2,7 @@
     <title>Go At It</title>
     <body>
         <h1>Got Something You Want To Do?</h1>
-        <form method="POST">
+        <form method="POST" action="/lists/new">
             <input id="new_item" name="item_text" placeholder="Enter a Go At It item"/>
             {% csrf_token %}
         </form>
