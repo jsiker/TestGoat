@@ -1,0 +1,12 @@
+<html xmlns="http://www.w3.org/1999/html">
+    <title>Go At It</title>
+    <body>
+        <h1>{% block header_text %}{% endblock %}</h1>
+        <form method="POST" action="{% block form_action %}{% endblock %}">
+            <input id="new_item" name="item_text" placeholder="Enter a Go At It item"/>
+            {% csrf_token %}
+        </form>
+        {% block table %}
+        {% endblock %}
+    </body>
+</html>
