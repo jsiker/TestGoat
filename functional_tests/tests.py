@@ -66,7 +66,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.browser.get(self.live_server_url)
         page_text = self.browser.find_element_by_tag_name('body').text
         self.assertNotIn('brew monkey tea', page_text)
-        self.assertNotIn('drink money tea, slowly', page_text)
+        self.assertNotIn('play with monkey', page_text)
 
         # bella starts a new list
         inputbox = self.browser.find_element_by_id('new_item')
